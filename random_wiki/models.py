@@ -1,24 +1,30 @@
 """
 This outlines the basic structure of a Program
 """
-from abc import ABC, abstractmethod
 import webbrowser
+from typing import List, Protocol
+
 import requests
 from bs4 import BeautifulSoup
-from random_wiki.random_wiki_text import introduction, article_success, article_declined, article_delivery, \
-                                         invalid_response
+
+from random_wiki.random_wiki_text import (
+    article_declined,
+    article_delivery,
+    article_success,
+    introduction,
+    invalid_response,
+)
 
 
-class Program(ABC):
+class Program(Protocol):
 
-    program_name = None
+    program_name: str
 
-    @abstractmethod
     def main(self):
         pass
 
 
-def get_random_wikipedia_article():
+def get_random_wikipedia_article() -> List[str]:
     """
     This will get the article title and link for a random wikipedia article.
     :return:
@@ -31,18 +37,18 @@ def get_random_wikipedia_article():
     return [title, link]
 
 
-def validate_response(response):
+def validate_response(response: str) -> bool:
     """
     This will validate the response given by the user and raise a ResponseValidationError if the input is incorrect.
     :return:
     """
     if isinstance(response, str):
-        if response.lower() in ['yes', 'no']:
+        if response.lower() in ["yes", "no"]:
             return True
     raise ResponseValidationError("Please try again!")
 
 
-def open_link(link):
+def open_link(link: str):
     """
     This will pass down a link to be opened by the web browser.
     :return:
@@ -52,7 +58,7 @@ def open_link(link):
 
 class RandomWiki(Program):
 
-    program_name = 'random_wiki'
+    program_name = "random_wiki"
 
     def main(self):
         print(introduction)
@@ -63,7 +69,7 @@ class RandomWiki(Program):
                 try:
                     response = input()
                     validate_response(response)
-                    if response.lower() == 'yes':
+                    if response.lower() == "yes":
                         open_link(link)
                         print(article_success)
                         exit()

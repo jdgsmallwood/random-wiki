@@ -1,5 +1,5 @@
-from random_wiki.models import RandomWiki
 from random_wiki.interface import Interface
+from random_wiki.models import RandomWiki
 
 
 def main():
@@ -7,5 +7,5 @@ def main():
     interface.main()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

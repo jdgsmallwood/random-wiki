@@ -6,13 +6,13 @@ from random_wiki.models import Program
 
 
 class TestInterface:
-
     def test_init(self):
         class HelloWorldProgram(Program):
             program_name = "Hello World!"
 
             def main(self):
                 print(self.program_name)
+
         # Test init
         interface.Interface(program=HelloWorldProgram())
 
@@ -22,6 +22,7 @@ class TestInterface:
 
             def main(self):
                 return 2
+
         i = interface.Interface(program=HelloWorldProgram())
         data = i.main()
         assert data == 2
